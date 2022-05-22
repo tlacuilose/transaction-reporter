@@ -7,7 +7,7 @@ import (
 )
 
 // CreateSummaryFromTransactions creates a summary given transactions and account name.
-func CreateSummaryFromTransactions(account string, transactions []entities.Transaction) (entities.Summary, error) {
+func CreateSummaryFromTransactions(transactions []entities.Transaction, account string) (entities.Summary, error) {
 	builder := summary_builder.NewDefaultSummaryBuilder(transactions)
 	director := summary_builder.NewSummaryDirector(builder)
 
