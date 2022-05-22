@@ -2,7 +2,6 @@
 package summary_builder
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/tlacuilose/transaction-reporter/domain/entities"
@@ -31,22 +30,20 @@ func TestDefaultBuilder(t *testing.T) {
 		t.Fatal("Failed to build a summary")
 	}
 
-	fmt.Println(summary)
-
 	if summary.Account != expectedAccount {
-		t.Fatal("Failed to set the summery account.")
+		t.Fatal("Failed to set the summary account.")
 	}
 
 	if summary.TotalBalance != expectedBalance {
-		t.Fatal("Failed to set the summery total balance.")
+		t.Fatal("Failed to set the summary total balance.")
 	}
 
 	if summary.AvgCredit != expectedAvgCredit {
-		t.Fatal("Failed to set the summery average credit.")
+		t.Fatal("Failed to set the summary average credit.")
 	}
 
 	if summary.AvgDebit != expectedAvgDebit {
-		t.Fatal("Failed to set the summery average debit.")
+		t.Fatal("Failed to set the summary average debit.")
 	}
 
 	for i := 0; i < 12; i++ {
