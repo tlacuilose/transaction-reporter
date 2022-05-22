@@ -1,3 +1,3 @@
-module github.com/tlacuilose/transaction-backup
+module github.com/tlacuilose/transaction-reporter
 
 go 1.18
