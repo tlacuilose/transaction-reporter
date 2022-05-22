@@ -33,6 +33,24 @@ func TestDebitTransaction(t *testing.T) {
 	}
 }
 
+// Test that the month is correct in transaction
+func TestGetMonth(t *testing.T) {
+	transaction := Transaction{1, "7/22", 200.0}
+	month, err := transaction.GetMonth()
+	if err != nil || month != 7 {
+		t.Fatal("Failed to get a correct month of the transaction.")
+	}
+}
+
+// Test that the day is correct in transaction
+func TestGetDay(t *testing.T) {
+	transaction := Transaction{1, "7/22", 200.0}
+	day, err := transaction.GetDay()
+	if err != nil || day != 22 {
+		t.Fatal("Failed to get a correct month of the transaction.")
+	}
+}
+
 // Test that a transaction acan be decoded from an array of strings.
 func TestDecodeTransaction(t *testing.T) {
 	var tests = [][]string{
@@ -47,6 +65,26 @@ func TestDecodeTransaction(t *testing.T) {
 			_, err := DecodeFromStrings(test)
 			if err != nil {
 				t.Fatal(err)
+			}
+		})
+	}
+}
+
+// Test incorrect format in decoder.
+func TestIncorrectFormat(t *testing.T) {
+	var tests = [][]string{
+		{"1", "ab/12", "-23.4"},
+		{"0", "2/123", "23.4"},
+		{"1", "22/12", "0"},
+		{"2", "2/22/12", "0"},
+	}
+
+	for _, test := range tests {
+		testname := fmt.Sprintf("Failing to converting %v to Transaction", test)
+		t.Run(testname, func(t *testing.T) {
+			_, err := DecodeFromStrings(test)
+			if err == nil {
+				t.Fatal("Incorrect formated transaction passed.")
 			}
 		})
 	}
