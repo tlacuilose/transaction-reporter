@@ -40,7 +40,7 @@ func TestCreateSummaryFromTransactions(t *testing.T) {
 	expectedAvgCredit := 282.0 / 3.0
 	expectedAvgDebit := -130.0 / 3.0
 
-	summary, err := CreateSummaryFromTransactions("002", transactions)
+	summary, err := CreateSummaryFromTransactions(transactions, "002")
 	if err != nil {
 		t.Fatal("Failed to build a summary")
 	}
@@ -84,7 +84,7 @@ func TestCreateSummaryFromFile(t *testing.T) {
 	expectedAvgCredit := 35.25
 	expectedAvgDebit := -15.38
 
-	summary, err := CreateSummaryFromTransactions(accountName, transactions)
+	summary, err := CreateSummaryFromTransactions(transactions, accountName)
 	if err != nil {
 		t.Fatal("Failed to build a summary")
 	}
