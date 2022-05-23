@@ -22,3 +22,6 @@ go.work
 /Godeps/
 
 .DS_Store
+sendgrid.env
+sendgrid.env
+sendgrid.env
