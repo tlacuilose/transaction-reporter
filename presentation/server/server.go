@@ -3,6 +3,7 @@ package server
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -34,11 +35,13 @@ func emailSummary(c echo.Context) error {
 
 	transactions, err := usecases.ReadFromLocalFile(storeFile)
 	if err != nil {
+		log.Println(err)
 		return c.String(http.StatusBadRequest, "Account not found")
 	}
 
 	summary, err := usecases.CreateSummaryFromTransactions(transactions, account)
 	if err != nil {
+		log.Println(err)
 		return c.String(http.StatusInternalServerError, "Failed to build the summary")
 	}
 

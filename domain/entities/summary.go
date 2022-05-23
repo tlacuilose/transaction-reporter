@@ -14,5 +14,5 @@ type Summary struct {
 
 // Print the summary in HTML
 func (s Summary) PrintHTML() string {
-	return fmt.Sprintf("Summary of: %s", s.Account)
+	return fmt.Sprintf("Summary of: %s\n%v", s.Account, s)
 }
