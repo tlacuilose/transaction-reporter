@@ -3,8 +3,8 @@ package email_service
 
 import "fmt"
 
-// SendMail sends an email.
-func SendMail(body string, email string) error {
+// DummySendEmail has not email sender but prints the
+func DummySendMail(body string, email string) error {
 	fmt.Printf("Mail sent! to: %s\n", email)
 	return nil
 }

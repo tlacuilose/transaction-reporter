@@ -3,6 +3,7 @@ package server
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -22,27 +23,33 @@ func New(port uint) *EchoServer {
 
 func (s *EchoServer) Start() {
 	e := s.e
-	e.POST("email/:account", emailSummary)
+	e.POST("email", emailSummary)
 	e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", s.port)))
 }
 
 func emailSummary(c echo.Context) error {
-	account := c.Param("account")
+	account := c.QueryParam("account")
 	email := c.QueryParam("email")
 
 	storeFile := fmt.Sprintf("./store/%s.csv", account)
 
 	transactions, err := usecases.ReadFromLocalFile(storeFile)
 	if err != nil {
+		log.Println(err)
 		return c.String(http.StatusBadRequest, "Account not found")
 	}
 
 	summary, err := usecases.CreateSummaryFromTransactions(transactions, account)
 	if err != nil {
+		log.Println(err)
 		return c.String(http.StatusInternalServerError, "Failed to build the summary")
 	}
 
 	err = usecases.SendSummaryByEmail(summary, email)
+	if err != nil {
+		log.Println(err)
+		return c.String(http.StatusInternalServerError, "Failed to send the summary")
+	}
 
 	return c.String(http.StatusOK, "Email sent!")
 }
